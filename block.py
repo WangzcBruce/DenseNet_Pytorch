@@ -95,9 +95,11 @@ class DenseNet(nn.Module):
         x = self.maxpool1(x)
         x = self.Dense_stage(x)
         x = self.avgpool(x)
+        x = torch.reshape(x, (x.size(0), -1))
         x = self.linear(x)
         return x
 
-
-
-print(DenseNet())
+x = torch.rand(7, 3, 256, 256)
+net = DenseNet()
+print(net)
+print(net(x).shape)
